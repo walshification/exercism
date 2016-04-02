@@ -13,8 +13,7 @@ def difference(limit):
 
 def square_of_sum(limit):
     """Returns the square of the sum of the first N natural numbers."""
-    sum_total = sum(range(limit + 1))
-    return sum_total * sum_total
+    return sum(range(limit + 1)) ** 2
 
 
 def sum_of_squares(limit):
