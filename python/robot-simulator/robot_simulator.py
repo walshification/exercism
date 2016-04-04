@@ -1,7 +1,7 @@
-NORTH = 'North'
-EAST = 'East'
-SOUTH = 'South'
-WEST = 'West'
+NORTH = 'N'
+EAST = 'E'
+SOUTH = 'S'
+WEST = 'W'
 
 
 class Robot(object):
@@ -11,36 +11,34 @@ class Robot(object):
         self.y = starting_y
         self.coordinates = (self.x, self.y)
 
-    def advance(self):
-        if self.bearing == NORTH:
-            self.y += 1
-        elif self.bearing == EAST:
-            self.x += 1
-        elif self.bearing == SOUTH:
-            self.y -= 1
-        elif self.bearing == WEST:
-            self.x -= 1
-        self.coordinates = (self.x, self.y)
-
     def turn_left(self):
-        if self.bearing == NORTH:
-            self.bearing = WEST
-        elif self.bearing == EAST:
-            self.bearing = NORTH
-        elif self.bearing == SOUTH:
-            self.bearing = EAST
-        elif self.bearing == WEST:
-            self.bearing = SOUTH
+        pivots = {
+            NORTH: WEST,
+            EAST: NORTH,
+            SOUTH: EAST,
+            WEST: SOUTH,
+        }
+        self.bearing = pivots[self.bearing]
 
     def turn_right(self):
-        if self.bearing == NORTH:
-            self.bearing = EAST
-        elif self.bearing == EAST:
-            self.bearing = SOUTH
-        elif self.bearing == SOUTH:
-            self.bearing = WEST
-        elif self.bearing == WEST:
-            self.bearing = NORTH
+        pivots = {
+            NORTH: EAST,
+            EAST: SOUTH,
+            SOUTH: WEST,
+            WEST: NORTH,
+        }
+        self.bearing = pivots[self.bearing]
+
+    def advance(self):
+        delta = {
+            NORTH: (0, 1),
+            EAST: (1, 0),
+            SOUTH: (0, -1),
+            WEST: (-1, 0),
+        }
+        self.x += delta[self.bearing][0]
+        self.y += delta[self.bearing][1]
+        self.coordinates = (self.x, self.y)
 
     def simulate(self, path):
         execute = {
