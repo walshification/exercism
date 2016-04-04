@@ -1,35 +1,42 @@
-from collections import OrderedDict
-
-
-ALLERGIES = OrderedDict([
-    ('cats', 128),
-    ('pollen', 64),
-    ('chocolate', 32),
-    ('tomatoes', 16),
-    ('strawberries', 8),
-    ('shellfish', 4),
-    ('peanuts', 2),
-    ('eggs', 1),
-])
+# -*- coding: utf-8 -*-
+ALLERGIES = {
+    'eggs': 1,
+    'peanuts': 2,
+    'shellfish': 4,
+    'strawberries': 8,
+    'tomatoes': 16,
+    'chocolate': 32,
+    'pollen': 64,
+    'cats': 128,
+}
 
 
 class Allergies(object):
-    """docstring for Allergies"""
+    """Object representation of a person's allergies.
+
+    Attributes:
+        score (int): The allergy score provided by input.
+    """
     def __init__(self, score):
-        self.score = self._generate_score(score)
+        self.score = score
         self._lst = []
 
     @property
     def lst(self):
-        score = self.score
-        for allergen, i in ALLERGIES.items():
-            if i <= score:
-                score -= i
-                self._lst.append(allergen)
+        """list: All the allergies a person has."""
+        if not self._lst:
+            self._lst = [a for a in ALLERGIES.keys() if self.is_allergic_to(a)]
         return self._lst
 
     def is_allergic_to(self, allergen):
-        return ALLERGIES[allergen] <= self.score
+        """Determines if a person is allergic to a given allergen
+        using a 'bitwise and' comparison of the allergen and allergy
+        score.
 
-    def _generate_score(self, given_score):
-        return given_score if given_score < 256 else given_score - 256
+        Args:
+            allergen (str): something a person might be allergic to.
+
+        Returns:
+            bool: True if allergic; otherwise, False
+        """
+        return self.score & ALLERGIES[allergen] > 0
