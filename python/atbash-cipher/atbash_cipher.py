@@ -13,13 +13,23 @@ DECODE_TABLE = str.maketrans(
 )
 
 
-def encode(text):
-    return ' '.join(
-        text.lower().translate(ENCODE_TABLE)[char:char + 5] for char in range(
-            0, len(''.join(list(text.lower().translate(ENCODE_TABLE)))), 5
-        )
-    )
+def encode(raw_text):
+    """Converts `raw_text` into an encoded message with punctuation
+    removed, evenly spaced by every five characters.
+    """
+    return _pentaglob(_translate(raw_text, ENCODE_TABLE))
 
 
-def decode(text):
-    return ''.join(list(text.lower().translate(DECODE_TABLE)))
+def decode(encoded_text):
+    """Converts `encoded_text` back to English without spaces or
+    punctuation.
+    """
+    return ''.join([_translate(encoded_text, DECODE_TABLE)])
+
+
+def _translate(text, codex):
+    return text.lower().translate(codex)
+
+
+def _pentaglob(chars):
+    return ' '.join([chars[ch:ch + 5] for ch in range(0, len(chars), 5)])
