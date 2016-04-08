@@ -8,8 +8,19 @@ def sum_of_multiples(limit, numbers=(3, 5)):
                     multiples. Defaults to (3, 5).
     :type numbers: list, tuple
 
-    :returns: the sum of the multiples.
+    :returns: sum of the multiples of the given numbers to the limit.
     :rtype: int
     """
-    return sum(set(i for f in filter(lambda f: f != 0, numbers)
-                   for i in range(limit) if i % f == 0))
+    return sum(_unique(_multiples_of(_positive(numbers), limit)))
+
+
+def _positive(numbers_list):
+    return list(filter(lambda f: f > 0, numbers_list))
+
+
+def _multiples_of(integers, bound):
+    return [i for i in range(bound) for j in integers if i % j == 0]
+
+
+def _unique(_list):
+    return list(set(_list))
