@@ -3,10 +3,11 @@ def say(number):
     number_name = []
     number_chunks = _chunk_it(number)
     for chunk in number_chunks:
-        number_name(_hundredify(chunk))
+        number_name.append(hundredify(chunk))
+    return ''.join(number_name)
 
 
-def _hundredify(int_group):
+def hundredify(int_group):
     numbers = {
         '0': 'zero',
         '1': 'one',
@@ -23,9 +24,22 @@ def _hundredify(int_group):
         '12': 'twelve'
     }
     translation = []
-    for i in int_group:
-        translation.append(translate(i))
-    if len(int_group) == 2 and int_group[0] == '1' and int_group not in numbers:
+    if len(int_group) == 3:
+        translation.extend(translate(int_group[0]))
+        if int_group[::-1][0:2] != '00':
+            translation.extend(' and ')
+            int_group = int_group[1:]
+            if len(int_group) == 2 and int_group[0] == '1' and int_group not in numbers:
+                translation.extend((numbers[int_group[1]], 'teen'))
+            elif len(int_group) == 2 and int_group[0] == '1':
+                translation.append(numbers[int_group])
+            elif len(int_group) == 2:
+                ten = _proper_ten(int_group[0])
+                if int_group[-1] == '0':
+                    translation.append(ten[:-1])
+                else:
+                    translation.extend((ten, numbers[int_group[1]]))
+    elif len(int_group) == 2 and int_group[0] == '1' and int_group not in numbers:
         translation.extend((numbers[int_group[1]], 'teen'))
     elif len(int_group) == 2 and int_group[0] == '1':
         translation.append(numbers[int_group])
@@ -41,7 +55,19 @@ def _hundredify(int_group):
 
 
 def translate(single_number_string):
-    pass
+    numbers = {
+        '0': 'zero',
+        '1': 'one',
+        '2': 'two',
+        '3': 'three',
+        '4': 'four',
+        '5': 'five',
+        '6': 'six',
+        '7': 'seven',
+        '8': 'eight',
+        '9': 'nine'
+    }
+    return '{} hundred'.format(numbers[single_number_string])
 
 
 def _proper_ten(int_string):
