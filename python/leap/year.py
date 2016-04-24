@@ -13,4 +13,4 @@ def is_leap_year(year):
     Returns:
         * bool: True for leap year; otherwise, False.
     """
-    return year % 100 != 0 and year % 4 == 0 or year % 400 == 0
+    return (year % 100 != 0 and year % 4 == 0) or year % 400 == 0
