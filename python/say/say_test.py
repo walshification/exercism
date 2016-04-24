@@ -40,7 +40,6 @@ class SayTest(unittest.TestCase):
         self.assertEqual("one million and two", say(1000002))
 
     def test_1002345(self):
-        import pudb; pudb.set_trace()
         self.assertEqual(
             "one million two thousand three hundred and forty-five",
             say(1002345))
