@@ -1,15 +1,12 @@
 class Hamming
 
-  def self.compute(first_dna_strand, second_dna_strand)
-    hamming_distance = 0
-
-    first_dna_strand.chars.each_with_index do |nucleotide, index|
-      unless nucleotide == second_dna_strand.chars[index]
-        hamming_distance += 1
-      end
+  def self.compute(strand1, strand2)
+    strand1_nucs = strand1.chars
+    strand2_nucs = strand2.chars
+    hamming = strand1_nucs.select.with_index do |nucleotide, i|
+      nucleotide unless nucleotide == strand2_nucs[i]
     end
-
-    hamming_distance
+    hamming.count
   end
 
 end
