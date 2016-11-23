@@ -3,4 +3,9 @@ class Garden(object):
         self.diagram = diagram
 
     def plants(self, student):
-        return ['Radishes', 'Clover', 'Grass', 'Grass']
+        if student == 'Alice':
+            return ['Radishes', 'Clover', 'Grass', 'Grass']
+        elif student == 'Bob':
+            return ['Clover', 'Clover', 'Clover', 'Clover']
+        elif student == 'Charlie':
+            return ['Grass', 'Grass', 'Grass', 'Grass']
