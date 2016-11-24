@@ -17,16 +17,14 @@ class Garden(object):
         return Student(
             name,
             self.__names.index(name),
-            len(self.__names),
             self.plot,
         )
 
 
 class Student(object):
-    def __init__(self, name, index, names, plot):
+    def __init__(self, name, index, plot):
         self.name = name
         self.index = index
-        self.names = names
         self.offset = index * 2
         self.plot = plot
         self._plants = None
