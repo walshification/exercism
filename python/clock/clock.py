@@ -12,7 +12,7 @@ class Clock(object):
         return self
 
     def _cycle(self, minutes):
-        if minutes < 59 and minutes >= 0:
+        if minutes < 60 and minutes >= 0:
             return minutes
         if minutes < 0:
             self.hour -= 1
