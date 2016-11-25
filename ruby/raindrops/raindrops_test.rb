@@ -27,7 +27,6 @@ class RaindropsTest < Minitest::Test
   end
 
   def test_8
-    skip
     assert_equal '8', Raindrops.convert(8)
   end
 

@@ -9,7 +9,7 @@ class Raindrops
     elsif number == 6
       'Pling'
     else
-      '1'
+      number.to_s
     end
   end
 end
