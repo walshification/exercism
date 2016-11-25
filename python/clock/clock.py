@@ -7,8 +7,12 @@ class Clock(object):
         return '%02d:%02d' % (self.hour, self.minutes)
 
     def _cycle(self, minutes):
-        if minutes < 59:
+        if minutes < 59 and minutes >= 0:
             return minutes
+        if minutes < 0:
+            self.hour -= 1
+            self.hour %= 24
+            return self._cycle(minutes + 60)
         self.hour += 1
         if self.hour > 23:
             self.hour %= 24
