@@ -1,9 +1,12 @@
 class Complement
   def self.of_dna(nucleotide)
-    if nucleotide == 'C'
+    case nucleotide
+    when 'C'
       return 'G'
-    elsif nucleotide == 'G'
+    when 'G'
       return 'C'
+    when 'T'
+      return 'A'
     end
   end
 end
