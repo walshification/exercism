@@ -10,4 +10,6 @@ class Clock(object):
         if minutes < 59:
             return minutes
         self.hour += 1
+        if self.hour > 23:
+            self.hour %= 24
         return self._cycle(minutes - 60)

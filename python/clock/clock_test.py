@@ -26,8 +26,8 @@ class ClockTest(unittest.TestCase):
     def test_minutes_roll_over(self):
         self.assertEqual('02:40', str(Clock(0, 160)))
 
-    # def test_minutes_roll_over_continuously(self):
-    #     self.assertEqual('04:43', str(Clock(0, 1723)))
+    def test_minutes_roll_over_continuously(self):
+        self.assertEqual('04:43', str(Clock(0, 1723)))
 
     # def test_hour_and_minutes_roll_over(self):
     #     self.assertEqual('03:40', str(Clock(25, 160)))
