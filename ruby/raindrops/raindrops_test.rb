@@ -15,7 +15,6 @@ class RaindropsTest < Minitest::Test
   end
 
   def test_5
-    skip
     assert_equal 'Plang', Raindrops.convert(5)
   end
 
