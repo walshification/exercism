@@ -111,51 +111,51 @@ class ClockTest(unittest.TestCase):
     def test_subtract_more_than_two_days(self):
         self.assertEqual('00:20', str(Clock(2, 20).add(-3000)))
 
-    # # Construct two separate clocks, set times, test if they are equal.
-    # def test_clocks_with_same_time(self):
-    #     self.assertEqual(Clock(15, 37), Clock(15, 37))
+    # Construct two separate clocks, set times, test if they are equal.
+    def test_clocks_with_same_time(self):
+        self.assertEqual(Clock(15, 37), Clock(15, 37))
 
-    # def test_clocks_a_minute_apart(self):
-    #     self.assertNotEqual(Clock(15, 36), Clock(15, 37))
+    def test_clocks_a_minute_apart(self):
+        self.assertNotEqual(Clock(15, 36), Clock(15, 37))
 
-    # def test_clocks_an_hour_apart(self):
-    #     self.assertNotEqual(Clock(14, 37), Clock(15, 37))
+    def test_clocks_an_hour_apart(self):
+        self.assertNotEqual(Clock(14, 37), Clock(15, 37))
 
-    # def test_clocks_with_hour_overflow(self):
-    #     self.assertEqual(Clock(10, 37), Clock(34, 37))
+    def test_clocks_with_hour_overflow(self):
+        self.assertEqual(Clock(10, 37), Clock(34, 37))
 
-    # def test_clocks_with_hour_overflow_by_several_days(self):
-    #     self.assertEqual(Clock(3, 11), Clock(99, 11))
+    def test_clocks_with_hour_overflow_by_several_days(self):
+        self.assertEqual(Clock(3, 11), Clock(99, 11))
 
-    # def test_clocks_with_negative_hour(self):
-    #     self.assertEqual(Clock(22, 40), Clock(-2, 40))
+    def test_clocks_with_negative_hour(self):
+        self.assertEqual(Clock(22, 40), Clock(-2, 40))
 
-    # def test_clocks_with_negative_hour_that_wraps(self):
-    #     self.assertEqual(Clock(17, 3), Clock(-31, 3))
+    def test_clocks_with_negative_hour_that_wraps(self):
+        self.assertEqual(Clock(17, 3), Clock(-31, 3))
 
-    # def test_clocks_with_negative_hour_that_wraps_multiple_times(self):
-    #     self.assertEqual(Clock(13, 49), Clock(-83, 49))
+    def test_clocks_with_negative_hour_that_wraps_multiple_times(self):
+        self.assertEqual(Clock(13, 49), Clock(-83, 49))
 
-    # def test_clocks_with_minute_overflow(self):
-    #     self.assertEqual(Clock(0, 1), Clock(0, 1441))
+    def test_clocks_with_minute_overflow(self):
+        self.assertEqual(Clock(0, 1), Clock(0, 1441))
 
-    # def test_clocks_with_minute_overflow_by_several_days(self):
-    #     self.assertEqual(Clock(2, 2), Clock(2, 4322))
+    def test_clocks_with_minute_overflow_by_several_days(self):
+        self.assertEqual(Clock(2, 2), Clock(2, 4322))
 
-    # def test_clocks_with_negative_minute(self):
-    #     self.assertEqual(Clock(2, 40), Clock(3, -20))
+    def test_clocks_with_negative_minute(self):
+        self.assertEqual(Clock(2, 40), Clock(3, -20))
 
-    # def test_clocks_with_negative_minute_that_wraps(self):
-    #     self.assertEqual(Clock(4, 10), Clock(5, -1490))
+    def test_clocks_with_negative_minute_that_wraps(self):
+        self.assertEqual(Clock(4, 10), Clock(5, -1490))
 
-    # def test_clocks_with_negative_minute_that_wraps_multiple_times(self):
-    #     self.assertEqual(Clock(6, 15), Clock(6, -4305))
+    def test_clocks_with_negative_minute_that_wraps_multiple_times(self):
+        self.assertEqual(Clock(6, 15), Clock(6, -4305))
 
-    # def test_clocks_with_negative_hours_and_minutes(self):
-    #     self.assertEqual(Clock(7, 32), Clock(-12, -268))
+    def test_clocks_with_negative_hours_and_minutes(self):
+        self.assertEqual(Clock(7, 32), Clock(-12, -268))
 
-    # def test_clocks_with_negative_hours_and_minutes_that_wrap(self):
-    #     self.assertEqual(Clock(18, 7), Clock(-54, -11513))
+    def test_clocks_with_negative_hours_and_minutes_that_wrap(self):
+        self.assertEqual(Clock(18, 7), Clock(-54, -11513))
 
 if __name__ == '__main__':
     unittest.main()

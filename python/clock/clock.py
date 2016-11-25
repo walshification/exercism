@@ -3,6 +3,9 @@ class Clock(object):
         self.hour = hour % 24
         self.minutes = self._cycle(minutes)
 
+    def __eq__(self, second_clock):
+        return str(self) == str(second_clock)
+
     def __str__(self):
         return '%02d:%02d' % (self.hour, self.minutes)
 
