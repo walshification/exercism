@@ -10,8 +10,7 @@ class Clock(object):
         return '%02d:%02d' % (self.hour, self.minutes)
 
     def add(self, minutes):
-        self.minutes += minutes
-        self.minutes = self._cycle(self.minutes)
+        self.minutes = self._cycle(self.minutes + minutes)
         return self
 
     def _cycle(self, minutes):
@@ -21,7 +20,7 @@ class Clock(object):
             self.hour -= 1
             self.hour %= 24
             return self._cycle(minutes + 60)
-        self.hour += 1
-        if self.hour > 23:
+        else:
+            self.hour += 1
             self.hour %= 24
-        return self._cycle(minutes - 60)
+            return self._cycle(minutes - 60)
