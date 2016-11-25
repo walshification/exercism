@@ -24,3 +24,7 @@ class DnaTranscriber
     end
   end
 end
+
+module BookKeeping
+  VERSION = 4
+end
