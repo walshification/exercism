@@ -62,21 +62,21 @@ class ClockTest(unittest.TestCase):
     def test_negative_hour_and_minutes_both_roll_over_continuously(self):
         self.assertEqual('22:10', str(Clock(-121, -5810)))
 
-    # # Test adding and subtracting minutes.
-    # def test_add_minutes(self):
-    #     self.assertEqual('10:03', str(Clock(10, 0).add(3)))
+    # Test adding and subtracting minutes.
+    def test_add_minutes(self):
+        self.assertEqual('10:03', str(Clock(10, 0).add(3)))
 
-    # def test_add_no_minutes(self):
-    #     self.assertEqual('06:41', str(Clock(6, 41).add(0)))
+    def test_add_no_minutes(self):
+        self.assertEqual('06:41', str(Clock(6, 41).add(0)))
 
-    # def test_add_to_next_hour(self):
-    #     self.assertEqual('01:25', str(Clock(0, 45).add(40)))
+    def test_add_to_next_hour(self):
+        self.assertEqual('01:25', str(Clock(0, 45).add(40)))
 
-    # def test_add_more_than_one_hour(self):
-    #     self.assertEqual('11:01', str(Clock(10, 0).add(61)))
+    def test_add_more_than_one_hour(self):
+        self.assertEqual('11:01', str(Clock(10, 0).add(61)))
 
-    # def test_add_more_than_two_hours_with_carry(self):
-    #     self.assertEqual('03:25', str(Clock(0, 45).add(160)))
+    def test_add_more_than_two_hours_with_carry(self):
+        self.assertEqual('03:25', str(Clock(0, 45).add(160)))
 
     # def test_add_across_midnight(self):
     #     self.assertEqual('00:01', str(Clock(23, 59).add(2)))

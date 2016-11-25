@@ -6,6 +6,11 @@ class Clock(object):
     def __str__(self):
         return '%02d:%02d' % (self.hour, self.minutes)
 
+    def add(self, minutes):
+        self.minutes += minutes
+        self.minutes = self._cycle(self.minutes)
+        return self
+
     def _cycle(self, minutes):
         if minutes < 59 and minutes >= 0:
             return minutes
