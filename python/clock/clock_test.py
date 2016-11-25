@@ -8,11 +8,11 @@ class ClockTest(unittest.TestCase):
     def test_on_the_hour(self):
         self.assertEqual('08:00', str(Clock(8, 0)))
 
-    # def test_past_the_hour(self):
-    #     self.assertEqual('11:09', str(Clock(11, 9)))
+    def test_past_the_hour(self):
+        self.assertEqual('11:09', str(Clock(11, 9)))
 
-    # def test_midnight_is_zero_hours(self):
-    #     self.assertEqual('00:00', str(Clock(24, 0)))
+    def test_midnight_is_zero_hours(self):
+        self.assertEqual('00:00', str(Clock(24, 0)))
 
     # def test_hour_rolls_over(self):
     #     self.assertEqual('01:00', str(Clock(25, 0)))
