@@ -1,5 +1,15 @@
 class Complement
-  def self.of_dna(nucleotide)
+  def self.of_dna(nucleotides)
+    transcribed = nucleotides.chars.map do |nucleotide|
+      DnaTranscriber.transcribe(nucleotide)
+    end
+    transcribed.join
+  end
+end
+
+
+class DnaTranscriber
+  def self.transcribe(nucleotide)
     case nucleotide
     when 'C'
       return 'G'
