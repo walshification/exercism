@@ -6,6 +6,8 @@ class Raindrops
       'Plang'
     elsif number == 7
       'Plong'
+    elsif number == 6
+      'Pling'
     else
       '1'
     end
