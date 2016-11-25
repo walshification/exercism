@@ -1,27 +1,12 @@
-VALID_DNA = [ 'C', 'G', 'T', 'A']
+DNA_MAP = { 'C' => 'G', 'G' => 'C', 'T' => 'A', 'A' => 'U' }
 
 class Complement
   def self.of_dna(nucleotides)
     transcribed = nucleotides.chars.map do |nucleotide|
-      return '' unless VALID_DNA.include?(nucleotide)
-      DnaTranscriber.transcribe(nucleotide)
+      return '' unless DNA_MAP.keys.include?(nucleotide)
+      DNA_MAP[nucleotide]
     end
     transcribed.join
-  end
-end
-
-class DnaTranscriber
-  def self.transcribe(nucleotide)
-    case nucleotide
-    when 'C'
-      return 'G'
-    when 'G'
-      return 'C'
-    when 'T'
-      return 'A'
-    when 'A'
-      return 'U'
-    end
   end
 end
 
