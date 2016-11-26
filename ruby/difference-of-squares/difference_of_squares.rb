@@ -5,6 +5,10 @@ class Squares
     @number = number
   end
 
+  def difference
+    square_of_sum - sum_of_squares
+  end
+
   def square_of_sum
     total = (0..number).inject { |sum, i| sum + i }
     total * total
