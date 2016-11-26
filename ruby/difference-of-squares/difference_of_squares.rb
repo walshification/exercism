@@ -1,9 +1,12 @@
 class Squares
+  attr_reader :number
+
   def initialize(number)
     @number = number
   end
 
   def square_of_sum
-    return 225
+    total = (0..number).inject { |sum, i| sum + i }
+    total * total
   end
 end
