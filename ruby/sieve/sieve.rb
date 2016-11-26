@@ -1,21 +1,21 @@
 class Sieve
-  attr_reader :composites, :limit, :numbers
+  attr_reader :composites, :limit
 
   def initialize(number)
     @limit = number
-    @numbers = 1.upto(number)
+    @primes = 2.upto(number)
     @composites = [1]
   end
 
   def primes
-    numbers.select { |i| is_prime?(i) }
+    @primes.select { |digit| is_prime?(digit) }
   end
 
   private
 
-  def is_prime?(i)
-    return false if composites.include?(i)
-    composites.push(*compositize(i))
+  def is_prime?(digit)
+    return false if composites.include?(digit)
+    composites.push(*compositize(digit))
     true
   end
 
