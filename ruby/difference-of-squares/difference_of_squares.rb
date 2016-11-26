@@ -1,8 +1,9 @@
 class Squares
-  attr_reader :number
+  attr_reader :number, :natural_numbers
 
   def initialize(number)
     @number = number
+    @natural_numbers = (0..number)
   end
 
   def difference
@@ -10,15 +11,24 @@ class Squares
   end
 
   def square_of_sum
-    total = (0..number).inject { |sum, i| sum + i }
-    total * total
+    sum ** 2
   end
 
   def sum_of_squares
     squares.inject { |sum, i| sum + i }
   end
 
-  def squares
-    (0..number).map { |i| i * i }
+  private
+
+  def sum
+    natural_numbers.inject { |sum, i| sum + i }
   end
+
+  def squares
+    natural_numbers.map { |i| i * i }
+  end
+end
+
+module BookKeeping
+  VERSION = 3
 end
