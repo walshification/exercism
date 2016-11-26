@@ -23,3 +23,7 @@ class Sieve
     1.upto(limit).map { |i| i * prime }
   end
 end
+
+module BookKeeping
+  VERSION = 1
+end
