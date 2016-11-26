@@ -1,8 +1,9 @@
 class Sieve
-  attr_reader :numbers
+  attr_reader :composites, :numbers
 
   def initialize(number)
-    @numbers = (1..number)
+    @numbers = 1.upto(number)
+    @composites = [1]
   end
 
   def primes
@@ -12,6 +13,12 @@ class Sieve
   private
 
   def is_prime?(number)
-    return false if number < 2
+    return false if composites.include?(number)
+    composites.push(*compositize(number))
+    true
+  end
+
+  def compositize(number)
+    1.upto(number) { |i| i * number }
   end
 end
