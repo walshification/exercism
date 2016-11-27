@@ -15,12 +15,12 @@ class Sieve
 
   def is_prime?(digit)
     return false if composites.include?(digit)
-    composites.push(*compositize(digit))
+    composites.push(*mark(digit))
     true
   end
 
-  def compositize(prime)
-    1.upto(limit).map { |i| i * prime }
+  def mark(prime)
+    1.upto(limit / prime).map { |i| i * prime }
   end
 end
 
