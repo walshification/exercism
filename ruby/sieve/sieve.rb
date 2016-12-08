@@ -1,26 +1,37 @@
-class Sieve
-  attr_reader :composites, :limit
+class Number
+  attr_reader :value, :marked
 
+  def initialize(value)
+    @marked = false
+    @value = value
+  end
+
+  def mark
+    @marked = true
+  end
+end
+
+class Sieve
   def initialize(number)
     @limit = number
-    @primes = 2.upto(number)
-    @composites = [1]
+    @primes = 2.upto(number).map { |prime| Number.new(prime) }
   end
 
   def primes
-    @primes.select { |digit| is_prime?(digit) }
+    @primes.each do |prime|
+      next if prime.marked
+      mark_composites(prime)
+    end
+    @primes.reject { |prime| prime.marked }.map { |prime| prime.value }
   end
 
   private
 
-  def is_prime?(digit)
-    return false if composites.include?(digit)
-    composites.push(*mark(digit))
-    true
-  end
-
-  def mark(prime)
-    1.upto(limit / prime).map { |i| i * prime }
+  def mark_composites(prime)
+    @primes.each do |integer|
+      next if integer.value == prime.value || integer.marked
+      integer.mark if integer.value % prime.value == 0
+    end
   end
 end
 
