@@ -3,24 +3,18 @@ class Fixnum
     number = self
     roman_numeral = []
     while number > 0
-      if number < 10 && number > 8
-        roman_numeral << 'IX'
-        number -= 9
-      elsif number < 9 && number > 4
-        roman_numeral << 'V'
-        number -= 5
-        number.times do
-          roman_numeral << 'I'
-          number -= 1
-        end
-      elsif number == 4
+      if number < 4
+        roman_numeral << 'I'
+        number -= 1
+      elsif number < 5
         roman_numeral << 'IV'
         number -= 4
-      elsif number < 4
-        number.times do
-          roman_numeral << 'I'
-          number -= 1
-        end
+      elsif number < 9
+        roman_numeral << 'V'
+        number -= 5
+      elsif number < 10
+        roman_numeral << 'IX'
+        number -= 9
       elsif number < 40
         roman_numeral << 'X'
         number -= 10
