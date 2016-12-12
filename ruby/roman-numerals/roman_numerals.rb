@@ -1,36 +1,62 @@
-STUMPS = ['1', '2', '3']
-
-EDGES = ['4', '9']
-
 class Fixnum
   def to_roman
-    case self
-    when 1, 2, 3
-      return translate(self.to_s.split)
-    when 4
-      return translate(self.to_s.split)
-    when 5
-      return 'V'
-    when 6
-      return 'VI'
-    when 9
-      return 'IX'
-    end
-  end
-
-  def translate(digits)
+    number = self
     roman_numeral = []
-    if EDGES.include?(digits.last)
-      roman_numeral << 'I'
-      roman_numeral << if digits.last == '4' then 'V' else 'X' end
-    end
-    if digits.last < 4
-      digits.last.to_i.times do
-        roman_numeral << 'I'
+    while number > 0
+      if number < 10 && number > 8
+        roman_numeral << 'IX'
+        number -= 9
+      elsif number < 9 && number > 4
+        roman_numeral << 'V'
+        number -= 5
+        number.times do
+          roman_numeral << 'I'
+          number -= 1
+        end
+      elsif number == 4
+        roman_numeral << 'IV'
+        number -= 4
+      elsif number < 4
+        number.times do
+          roman_numeral << 'I'
+          number -= 1
+        end
+      elsif number < 40
+        roman_numeral << 'X'
+        number -= 10
+      elsif number < 50
+        roman_numeral << 'XL'
+        number -= 40
+      elsif number < 60
+        roman_numeral << 'L'
+        number -= 50
+      elsif number < 90
+        roman_numeral << 'LX'
+        number -= 60
+      elsif number < 100
+        roman_numeral << 'XC'
+        number -= 90
+      elsif number < 400
+        roman_numeral << 'C'
+        number -= 100
+      elsif number < 500
+        roman_numeral << 'CD'
+        number -= 400
+      elsif number < 600
+        roman_numeral << 'D'
+        number -= 500
+      elsif number < 1000
+        roman_numeral << 'CM'
+        number -= 900
+      else
+        roman_numeral << 'M'
+        number -= 1000
       end
-    elsif digits.last < 9
-
     end
     roman_numeral.join
   end
+end
+
+module BookKeeping
+  VERSION = 2
 end
