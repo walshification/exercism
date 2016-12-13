@@ -1,36 +1,32 @@
-class Number
-  attr_reader :value, :marked
-
-  def initialize(value)
-    @marked = false
-    @value = value
-  end
-
-  def mark
-    @marked = true
-  end
-end
-
 class Sieve
   def initialize(number)
     @limit = number
-    @primes = 2.upto(number).map { |prime| Number.new(prime) }
   end
 
   def primes
-    @primes.each do |prime|
-      next if prime.marked
-      mark_composites(prime)
-    end
-    @primes.reject { |prime| prime.marked }.map { |prime| prime.value }
+    @primes ||= generate_primes
   end
 
   private
 
+  def generate_primes
+    integers.each do |prime|
+      next unless prime
+      mark_composites(prime)
+      break if prime * prime >= @limit
+    end
+    @primes.compact
+  end
+
+  def integers
+    @primes = 0.upto(@limit).to_a
+    @primes[0], @primes[1] = nil  # skip 0 and 1
+    @primes
+  end
+
   def mark_composites(prime)
-    @primes.each do |integer|
-      next if integer.value == prime.value || integer.marked
-      integer.mark if integer.value % prime.value == 0
+    ((prime * prime)..@limit).step(prime) do |composite|
+      @primes[composite] = nil
     end
   end
 end
