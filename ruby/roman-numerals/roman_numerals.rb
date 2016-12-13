@@ -1,18 +1,17 @@
-NUMERALS = [
-  { '4' => ['I', 1] },
-  { '5' => ['IV', 4] },
-  { '9' => ['V', 5] },
-  { '10' => ['IX', 9] },
-  { '40' => ['X', 10] },
-  { '50' => ['XL', 40] },
-  { '60' => ['L', 50] },
-  { '90' => ['LX', 60] },
-  { '100' => ['XC', 90] },
-  { '400' => ['C', 100] },
-  { '500' => ['CD', 400] },
-  { '900' => ['D', 500] },
-  { '1000' => ['CM', 900] },
-  { '999999999' => ['M', 1000] },
+NUMERALS_TO_LIMITS = [
+  ['M', 1000],
+  ['CM', 900],
+  ['D', 500],
+  ['CD', 400],
+  ['C', 100],
+  ['XC', 90],
+  ['L', 50],
+  ['XL', 40],
+  ['X', 10],
+  ['IX', 9],
+  ['V', 5],
+  ['IV', 4],
+  ['I', 1],
 ]
 
 class Fixnum
@@ -20,10 +19,10 @@ class Fixnum
     number = self
     roman_numeral = []
     while number > 0
-      NUMERALS.each do |limit_pair|
-        if number < limit_pair.keys.first.to_i
-          roman_numeral << limit_pair[limit_pair.keys.first][0]
-          number -= limit_pair[limit_pair.keys.first][1]
+      NUMERALS_TO_LIMITS.each do |numeral, limit|
+        if number >= limit
+          roman_numeral << numeral
+          number -= limit
           break
         end
       end
