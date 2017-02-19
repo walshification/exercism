@@ -1,6 +1,7 @@
 class Sieve
-  def initialize(number)
-    @limit = number
+  def initialize(limit)
+    @limit = limit
+    @square_root_of_limit = Math.sqrt(limit).ceil
   end
 
   def primes
@@ -10,23 +11,20 @@ class Sieve
   private
 
   def generate_primes
-    integers.each do |prime|
-      next unless prime
+    integers.map do |prime|
+      next if prime.nil?
       mark_composites(prime)
-      break if prime * prime >= @limit
     end
-    @primes.compact
+    integers.compact
   end
 
   def integers
-    @primes = 0.upto(@limit).to_a
-    @primes[0], @primes[1] = nil  # skip 0 and 1
-    @primes
+    @integers ||= Array(2..@limit)
   end
 
   def mark_composites(prime)
     ((prime * prime)..@limit).step(prime) do |composite|
-      @primes[composite] = nil
+      integers[composite - 2] = nil
     end
   end
 end
