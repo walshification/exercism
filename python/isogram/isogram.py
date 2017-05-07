@@ -11,4 +11,7 @@ def is_isogram(phrase):
     :rtype: bool
     '''
     phrase = phrase.lower()
-    return all(phrase.count(c) <= 1 for c in phrase if c in string.ascii_lowercase)
+    for c in phrase:
+        if c in string.ascii_lowercase and phrase.count(c) > 1:
+            return False
+    return True
