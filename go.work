@@ -5,4 +5,5 @@ use (
 	./go/cars-assemble
 	./go/hello-world
 	./go/lasagna
+	./go/weather-forecast
 )
