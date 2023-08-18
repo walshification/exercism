@@ -6,6 +6,7 @@ use (
 	./go/hello-world
 	./go/lasagna
 	./go/party-robot
+	./go/vehicle-purchase
 	./go/weather-forecast
 	./go/welcome-to-tech-palace
 )
