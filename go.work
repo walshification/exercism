@@ -2,6 +2,7 @@ go 1.20
 
 use (
 	./go/annalyns-infiltration
+	./go/blackjack
 	./go/cars-assemble
 	./go/hello-world
 	./go/lasagna
