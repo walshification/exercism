@@ -5,6 +5,7 @@ use (
 	./go/cars-assemble
 	./go/hello-world
 	./go/lasagna
+	./go/need-for-speed
 	./go/party-robot
 	./go/vehicle-purchase
 	./go/weather-forecast
