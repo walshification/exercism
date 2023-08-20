@@ -1,6 +1,16 @@
 go 1.20
 
 use (
+	./go/animal-magic
+	./go/annalyns-infiltration
+	./go/blackjack
+	./go/card-tricks
+	./go/cars-assemble
 	./go/hello-world
 	./go/lasagna
+	./go/need-for-speed
+	./go/party-robot
+	./go/vehicle-purchase
+	./go/weather-forecast
+	./go/welcome-to-tech-palace
 )
