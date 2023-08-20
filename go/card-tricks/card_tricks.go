@@ -31,18 +31,17 @@ func PrependItems(slice []int, values ...int) []int {
 
 // RemoveItem removes an item from a slice by modifying the existing slice.
 func RemoveItem(slice []int, index int) []int {
-	if checkOutOfBounds(index, len(slice)) {
+	sliceLength := len(slice)
+	if checkOutOfBounds(index, sliceLength) {
 		return slice
 	}
-	newSlice := []int{}
-	for i, v := range slice {
-		// If this is not the index of the item to be removed ...
-		if i != index {
-			// Copy it over.
-			newSlice = append(newSlice, v)
-		}
+	removedSlice := slice[:index]
+	// If the removed index is not at the end ...
+	if index+1 < sliceLength {
+		// tack on the rest of the slice after the removed index.
+		removedSlice = append(removedSlice, slice[index+1:]...)
 	}
-	return newSlice
+	return removedSlice
 }
 
 // checkOutOfBounds returns true if an index is not found in a given slice.
