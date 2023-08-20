@@ -1,6 +1,5 @@
-def is_leap_year(year):
-    """Determines whether or not a year is a leap year based on the
-    Gregorian calendar.
+def leap_year(year: int) -> bool:
+    """Returns True if year is a leap year in the Gregorian calendar.
 
     A year is a leap year if it meets the following conditions:
         * evenly divisible by 4
