@@ -1,26 +1,13 @@
-def sum_of_multiples(limit, numbers=(3, 5)):
-    """Return the sum of the multiples of a particular set of numbers
-    up to the limit.
+from typing import Sequence
 
-    :param limit: the number up to which multiples are summed.
-    :type limit: int
-    :param numbers: (option) a list of numbers used to find the
-                    multiples. Defaults to (3, 5).
-    :type numbers: list, tuple
 
-    :returns: sum of the multiples of the given numbers to the limit.
-    :rtype: int
+def sum_of_multiples(N: int, numbers: Sequence[int]) -> int:
+    """Return the sum of the multiples of a set of numbers up to N.
+
+    :param limit: int - the number up to which multiples are summed.
+    :param numbers: sequence - a sequence of numbers.
+    :returns: int - sum of the multiples of the given numbers up to N.
     """
-    return sum(_unique(_multiples_of(_positive(numbers), limit)))
-
-
-def _positive(numbers_list):
-    return list(filter(lambda f: f > 0, numbers_list))
-
-
-def _multiples_of(integers, bound):
-    return [i for i in range(bound) for j in integers if i % j == 0]
-
-
-def _unique(_list):
-    return list(set(_list))
+    return sum(
+        {factor for factor in range(N) for i in numbers if i and factor % i == 0}
+    )
