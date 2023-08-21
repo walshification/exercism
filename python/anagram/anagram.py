@@ -1,29 +1,31 @@
-def detect_anagrams(word, possible_anagrams):
-    """Filters a list of words and returns a given word's anagrams.
+from typing import List
+
+
+def find_anagrams(word: str, possible_anagrams: List[str]) -> List[str]:
+    """Return a list of words that are anagrams of the given word.
 
     A word is an anagram if it can be created by rearranging a given
     word's letters, with no letters removed or added.
 
-    Args:
-        * word (str): the origin word for comparison.
-        * possible_anagrams (list): a list of words to be filtered
-                                    through `word`.
-
-    Returns:
-        * list: words that are anagrams of `word`.
+    :param word: str - the origin word for comparison.
+    :param possible_anagrams: list - a list of possible anagrams for the word.
+    :return: list - all anagrams of the word.
     """
-    return list(filter(lambda a: is_anagram(word.lower(), a.lower()),
-                       possible_anagrams))
+    word = word.lower()
+    letters = sorted(word.lower())
+    return [
+        possible_anagram
+        for possible_anagram in possible_anagrams
+        if word != possible_anagram.lower()
+        and is_anagram(possible_anagram.lower(), letters)
+    ]
 
 
-def is_anagram(word1, word2):
-    """Determines if two words are anagrams.
+def is_anagram(possible_anagram: str, letters: List[str]) -> bool:
+    """Returns True if a possible anagram uses all of a set of letters.
 
-    Args:
-        * word1 (str): the first word.
-        * word2 (str): the second word.
-
-    Returns:
-        * bool: True if anagram; otherwise, False.
+    :param possible_anagram: str - a word.
+    :param letters: list - a list of letters an anagram must use.
+    :returns: bool - True if the possible anagram uses all the letters.
     """
-    return sorted(list(word1)) == sorted(list(word2)) and word1 != word2
+    return sorted(possible_anagram) == letters

@@ -1,71 +1,95 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/anagram/canonical-data.json
+# File last updated on 2023-07-20
+
 import unittest
 
-from anagram import detect_anagrams
+from anagram import (
+    find_anagrams,
+)
 
 
-class AnagramTests(unittest.TestCase):
+class AnagramTest(unittest.TestCase):
     def test_no_matches(self):
-        self.assertEqual(
-            [],
-            detect_anagrams('diaper', 'hello world zombies pants'.split())
-        )
+        candidates = ["hello", "world", "zombies", "pants"]
+        expected = []
+        self.assertCountEqual(find_anagrams("diaper", candidates), expected)
 
-    def test_detect_simple_anagram(self):
-        self.assertEqual(
-            ['tan'],
-            detect_anagrams('ant', 'tan stand at'.split())
-        )
+    def test_detects_two_anagrams(self):
+        candidates = ["lemons", "cherry", "melons"]
+        expected = ["lemons", "melons"]
+        self.assertCountEqual(find_anagrams("solemn", candidates), expected)
 
-    def test_detect_multiple_anagrams(self):
-        self.assertEqual(
-            ['stream', 'maters'],
-            detect_anagrams('master', 'stream pigeon maters'.split())
-        )
+    def test_does_not_detect_anagram_subsets(self):
+        candidates = ["dog", "goody"]
+        expected = []
+        self.assertCountEqual(find_anagrams("good", candidates), expected)
 
-    def test_does_not_confuse_different_duplicates(self):
-        self.assertEqual(
-            [],
-            detect_anagrams('galea', ['eagle'])
-        )
+    def test_detects_anagram(self):
+        candidates = ["enlists", "google", "inlets", "banana"]
+        expected = ["inlets"]
+        self.assertCountEqual(find_anagrams("listen", candidates), expected)
 
-    def test_eliminate_anagram_subsets(self):
-        self.assertEqual(
-            [],
-            detect_anagrams('good', 'dog goody'.split())
-        )
+    def test_detects_three_anagrams(self):
+        candidates = ["gallery", "ballerina", "regally", "clergy", "largely", "leading"]
+        expected = ["gallery", "regally", "largely"]
+        self.assertCountEqual(find_anagrams("allergy", candidates), expected)
 
-    def test_detect_anagram(self):
-        self.assertEqual(
-            ['inlets'],
-            detect_anagrams('listen', 'enlists google inlets banana'.split())
-        )
+    def test_detects_multiple_anagrams_with_different_case(self):
+        candidates = ["Eons", "ONES"]
+        expected = ["Eons", "ONES"]
+        self.assertCountEqual(find_anagrams("nose", candidates), expected)
 
-    def test_multiple_anagrams(self):
-        self.assertEqual(
-            'gallery regally largely'.split(),
-            detect_anagrams(
-                'allergy',
-                'gallery ballerina regally clergy largely leading'.split()
-            )
-        )
+    def test_does_not_detect_non_anagrams_with_identical_checksum(self):
+        candidates = ["last"]
+        expected = []
+        self.assertCountEqual(find_anagrams("mass", candidates), expected)
 
-    def test_anagrams_are_case_insensitive(self):
-        self.assertEqual(
-            ['Carthorse'],
-            detect_anagrams('Orchestra',
-                            'cashregister Carthorse radishes'.split())
-        )
+    def test_detects_anagrams_case_insensitively(self):
+        candidates = ["cashregister", "Carthorse", "radishes"]
+        expected = ["Carthorse"]
+        self.assertCountEqual(find_anagrams("Orchestra", candidates), expected)
 
-    def test_same_word_isnt_anagram(self):
-        self.assertEqual(
-            [],
-            detect_anagrams('banana', ['banana'])
-        )
+    def test_detects_anagrams_using_case_insensitive_subject(self):
+        candidates = ["cashregister", "carthorse", "radishes"]
+        expected = ["carthorse"]
+        self.assertCountEqual(find_anagrams("Orchestra", candidates), expected)
 
-        self.assertEqual(
-            [],
-            detect_anagrams('go', 'go Go GO'.split())
-        )
+    def test_detects_anagrams_using_case_insensitive_possible_matches(self):
+        candidates = ["cashregister", "Carthorse", "radishes"]
+        expected = ["Carthorse"]
+        self.assertCountEqual(find_anagrams("orchestra", candidates), expected)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_does_not_detect_an_anagram_if_the_original_word_is_repeated(self):
+        candidates = ["go Go GO"]
+        expected = []
+        self.assertCountEqual(find_anagrams("go", candidates), expected)
+
+    def test_anagrams_must_use_all_letters_exactly_once(self):
+        candidates = ["patter"]
+        expected = []
+        self.assertCountEqual(find_anagrams("tapper", candidates), expected)
+
+    def test_words_are_not_anagrams_of_themselves(self):
+        candidates = ["BANANA"]
+        expected = []
+        self.assertCountEqual(find_anagrams("BANANA", candidates), expected)
+
+    def test_words_are_not_anagrams_of_themselves_even_if_letter_case_is_partially_different(
+        self,
+    ):
+        candidates = ["Banana"]
+        expected = []
+        self.assertCountEqual(find_anagrams("BANANA", candidates), expected)
+
+    def test_words_are_not_anagrams_of_themselves_even_if_letter_case_is_completely_different(
+        self,
+    ):
+        candidates = ["banana"]
+        expected = []
+        self.assertCountEqual(find_anagrams("BANANA", candidates), expected)
+
+    def test_words_other_than_themselves_can_be_anagrams(self):
+        candidates = ["LISTEN", "Silent"]
+        expected = ["Silent"]
+        self.assertCountEqual(find_anagrams("LISTEN", candidates), expected)
