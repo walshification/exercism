@@ -1,4 +1,5 @@
 import string
+from typing import Mapping, Union
 
 
 ENCODE_TABLE = str.maketrans(
@@ -7,29 +8,37 @@ ENCODE_TABLE = str.maketrans(
     string.punctuation + string.whitespace,  # remove this stuff
 )
 DECODE_TABLE = str.maketrans(
-    string.ascii_lowercase[::-1],
-    string.ascii_lowercase,
-    string.whitespace
+    string.ascii_lowercase[::-1], string.ascii_lowercase, string.whitespace
 )
 
 
-def encode(raw_text):
-    """Converts `raw_text` into an encoded message with punctuation
-    removed, evenly spaced by every five characters.
+def encode(text: str) -> str:
+    """Return an encoded message.
+
+    The Atbash Cipher removes punctuation and evenly spaces characters
+    in groups of five.
+
+    :param text: str - the text to encode.
+    :return: str - the encoded text.
     """
-    return _pentaglob(_translate(raw_text, ENCODE_TABLE))
+    chars = _translate(text, ENCODE_TABLE)
+    return " ".join(chars[ch : ch + 5] for ch in range(0, len(chars), 5))
 
 
-def decode(encoded_text):
-    """Converts `encoded_text` back to English without spaces or
-    punctuation.
+def decode(text: str) -> str:
+    """Return text in English without spaces or punctuation.
+
+    :param text: str - the text to decode.
+    :return: str - the text, decoded.
     """
-    return ''.join([_translate(encoded_text, DECODE_TABLE)])
+    return "".join(_translate(text, DECODE_TABLE))
 
 
-def _translate(text, codex):
+def _translate(text, codex: Mapping[int, Union[int, None]]):
+    """Apply table transformations to a text.
+
+    :param text: str - the text to transform.
+    :param codex: translation table - the mapping of transformations.
+    :return: string
+    """
     return text.lower().translate(codex)
-
-
-def _pentaglob(chars):
-    return ' '.join([chars[ch:ch + 5] for ch in range(0, len(chars), 5)])
