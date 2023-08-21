@@ -1,69 +1,85 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/say/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
-from say import say
+from say import (
+    say,
+)
 
 
 class SayTest(unittest.TestCase):
+    def test_zero(self):
+        self.assertEqual(say(0), "zero")
 
     def test_one(self):
-        self.assertEqual("one", say(1))
+        self.assertEqual(say(1), "one")
 
     def test_fourteen(self):
-        self.assertEqual("fourteen", say(14))
+        self.assertEqual(say(14), "fourteen")
 
     def test_twenty(self):
-        self.assertEqual("twenty", say(20))
+        self.assertEqual(say(20), "twenty")
 
     def test_twenty_two(self):
-        self.assertEqual("twenty-two", say(22))
+        self.assertEqual(say(22), "twenty-two")
+
+    def test_thirty(self):
+        self.assertEqual(say(30), "thirty")
+
+    def test_ninety_nine(self):
+        self.assertEqual(say(99), "ninety-nine")
 
     def test_one_hundred(self):
-        self.assertEqual("one hundred", say(100))
-
-    def test_one_hundred_twenty(self):
-        self.assertEqual("one hundred and twenty", say(120))
+        self.assertEqual(say(100), "one hundred")
 
     def test_one_hundred_twenty_three(self):
-        self.assertEqual("one hundred and twenty-three", say(123))
+        self.assertEqual(say(123), "one hundred twenty-three")
+
+    def test_two_hundred(self):
+        self.assertEqual(say(200), "two hundred")
+
+    def test_nine_hundred_ninety_nine(self):
+        self.assertEqual(say(999), "nine hundred ninety-nine")
 
     def test_one_thousand(self):
-        self.assertEqual("one thousand", say(1000))
+        self.assertEqual(say(1000), "one thousand")
 
     def test_one_thousand_two_hundred_thirty_four(self):
-        self.assertEqual("one thousand two hundred and thirty-four",
-                         say(1234))
+        self.assertEqual(say(1234), "one thousand two hundred thirty-four")
 
     def test_one_million(self):
-        self.assertEqual("one million", say(1e6))
+        self.assertEqual(say(1000000), "one million")
 
-    def test_one_million_two(self):
-        self.assertEqual("one million and two", say(1000002))
-
-    def test_1002345(self):
+    def test_one_million_two_thousand_three_hundred_forty_five(self):
         self.assertEqual(
-            "one million two thousand three hundred and forty-five",
-            say(1002345))
+            say(1002345), "one million two thousand three hundred forty-five"
+        )
 
     def test_one_billion(self):
-        self.assertEqual("one billion", say(1e9))
+        self.assertEqual(say(1000000000), "one billion")
 
-    def test_number_to_large(self):
-        with self.assertRaises(AttributeError):
-            say(1e12)
+    def test_a_big_number(self):
+        self.assertEqual(
+            say(987654321123),
+            "nine hundred eighty-seven billion six hundred fifty-four million three hundred twenty-one thousand one hundred twenty-three",
+        )
 
-    def test_number_negative(self):
-        with self.assertRaises(AttributeError):
-            say(-42)
+    def test_numbers_below_zero_are_out_of_range(self):
+        with self.assertRaises(ValueError) as err:
+            say(-1)
 
-    def test_zero(self):
-        self.assertEqual("zero", say(0))
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "input out of range")
 
-    def test_987654321123(self):
-        self.assertEqual("nine hundred and eighty-seven billion " +
-                         "six hundred and fifty-four million " +
-                         "three hundred and twenty-one thousand " +
-                         "one hundred and twenty-three",
-                         say(987654321123))
+    def test_numbers_above_999_999_999_999_are_out_of_range(self):
+        with self.assertRaises(ValueError) as err:
+            say(1000000000000)
 
-if __name__ == '__main__':
-    unittest.main()
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "input out of range")
+
+    # Additional tests for this track
+    def test_one_hundred_seventy(self):
+        self.assertEqual(say(170), "one hundred seventy")
