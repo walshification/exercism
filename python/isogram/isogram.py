@@ -1,17 +1,19 @@
-import string
+import re
 
 
-def is_isogram(phrase):
-    '''Checks if a phrase is isogrammatic, e.g. doesn't contain the
-    same letter more than once.
+NON_LETTERS = re.compile("[^a-zA-Z]")
 
-    :param phrase: The phrase to check.
-    :type phrase: str
-    :returns: True if isogrammatic; otherwise, False.
-    :rtype: bool
-    '''
-    phrase = phrase.lower()
-    for c in phrase:
-        if c in string.ascii_lowercase and phrase.count(c) > 1:
-            return False
-    return True
+
+def is_isogram(phrase: str) -> bool:
+    """Returns True is phrase is isogrammatic.
+
+    A phrase is isogrammatic if it doesn't use a letter more than once.
+
+    Args:
+        phrase (str): The phrase to check.
+
+    Returns:
+        bool: True if isogrammatic; otherwise, False.
+    """
+    letters = NON_LETTERS.sub("", phrase.lower())
+    return len(letters) == len(set(letters))
