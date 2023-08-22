@@ -1,21 +1,46 @@
 # Anagram
 
-Write a program that, given a word and a list of possible anagrams, selects the correct sublist.
+Welcome to Anagram on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
 
-Given `"listen"` and a list of candidates like `"enlists" "google"
-"inlets" "banana"` the program should return a list containing
-`"inlets"`.
+## Instructions
 
-### Submitting Exercises
+An anagram is a rearrangement of letters to form a new word: for example `"owns"` is an anagram of `"snow"`.
+A word is not its own anagram: for example, `"stop"` is not an anagram of `"stop"`.
 
-Note that, when trying to submit an exercise, make sure the solution is in the `exercism/python/<exerciseName>` directory.
+Given a target word and a set of candidate words, this exercise requests the anagram set: the subset of the candidates that are anagrams of the target.
 
-For example, if you're submitting `bob.py` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/python/bob/bob.py`.
+The target and candidates are words of one or more ASCII alphabetic characters (`A`-`Z` and `a`-`z`).
+Lowercase and uppercase characters are equivalent: for example, `"PoTS"` is an anagram of `"sTOp"`, but `StoP` is not an anagram of `sTOp`.
+The anagram set is the subset of the candidate set that are anagrams of the target (in any order).
+Words in the anagram set should have the same letter case as in the candidate set.
 
-
-For more detailed information about running tests, code style and linting,
-please see the [help page](http://exercism.io/languages/python).
+Given the target `"stone"` and candidates `"stone"`, `"tones"`, `"banana"`, `"tons"`, `"notes"`, `"Seton"`, the anagram set is `"tones"`, `"notes"`, `"Seton"`.
 
 ## Source
 
-Inspired by the Extreme Startup game [view source](https://github.com/rchatley/extreme_startup)
+### Contributed to by
+
+- @behrtam
+- @cmccandless
+- @crazymykl
+- @Dog
+- @dotrungkien
+- @henrik
+- @ikhadykin
+- @kytrinyx
+- @lowks
+- @markijbema
+- @N-Parsons
+- @n1k0
+- @pheanex
+- @roadfoodr
+- @sjakobi
+- @thomasjpfan
+- @tqa236
+- @vgerak
+- @yawpitch
+
+### Based on
+
+Inspired by the Extreme Startup game - https://github.com/rchatley/extreme_startup

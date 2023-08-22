@@ -1,31 +1,54 @@
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/hamming/canonical-data.json
+# File last updated on 2023-07-19
+
 import unittest
 
-import hamming
+from hamming import (
+    distance,
+)
 
 
 class HammingTest(unittest.TestCase):
+    def test_empty_strands(self):
+        self.assertEqual(distance("", ""), 0)
 
-    def test_no_difference_between_identical_strands(self):
-        self.assertEqual(0, hamming.distance('A', 'A'))
+    def test_single_letter_identical_strands(self):
+        self.assertEqual(distance("A", "A"), 0)
 
-    def test_complete_hamming_distance_of_for_single_nucleotide_strand(self):
-        self.assertEqual(1, hamming.distance('A', 'G'))
+    def test_single_letter_different_strands(self):
+        self.assertEqual(distance("G", "T"), 1)
 
-    def test_complete_hamming_distance_of_for_small_strand(self):
-        self.assertEqual(2, hamming.distance('AG', 'CT'))
+    def test_long_identical_strands(self):
+        self.assertEqual(distance("GGACTGAAATCTG", "GGACTGAAATCTG"), 0)
 
-    def test_small_hamming_distance(self):
-        self.assertEqual(1, hamming.distance('AT', 'CT'))
+    def test_long_different_strands(self):
+        self.assertEqual(distance("GGACGGATTCTG", "AGGACGGATTCT"), 9)
 
-    def test_small_hamming_distance_in_longer_strand(self):
-        self.assertEqual(1, hamming.distance('GGACG', 'GGTCG'))
+    def test_disallow_first_strand_longer(self):
+        with self.assertRaises(ValueError) as err:
+            distance("AATG", "AAA")
 
-    def test_large_hamming_distance(self):
-        self.assertEqual(4, hamming.distance('GATACA', 'GCATAA'))
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Strands must be of equal length.")
 
-    def test_hamming_distance_in_very_long_strand(self):
-        self.assertEqual(9, hamming.distance('GGACGGATTCTG', 'AGGACGGATTCT'))
+    def test_disallow_second_strand_longer(self):
+        with self.assertRaises(ValueError) as err:
+            distance("ATA", "AGTG")
 
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Strands must be of equal length.")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_disallow_empty_first_strand(self):
+        with self.assertRaises(ValueError) as err:
+            distance("", "G")
+
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Strands must be of equal length.")
+
+    def test_disallow_empty_second_strand(self):
+        with self.assertRaises(ValueError) as err:
+            distance("G", "")
+
+        self.assertEqual(type(err.exception), ValueError)
+        self.assertEqual(err.exception.args[0], "Strands must be of equal length.")

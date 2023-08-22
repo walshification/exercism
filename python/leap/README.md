@@ -1,38 +1,55 @@
 # Leap
 
-Write a program that will take a year and report if it is a leap year.
+Welcome to Leap on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Given a year, report if it is a leap year.
 
 The tricky thing here is that a leap year in the Gregorian calendar occurs:
 
-```
+```text
 on every year that is evenly divisible by 4
   except every year that is evenly divisible by 100
     unless the year is also evenly divisible by 400
 ```
 
-For example, 1997 is not a leap year, but 1996 is.  1900 is not a leap
-year, but 2000 is.
-
-If your language provides a method in the standard library that does
-this look-up, pretend it doesn't exist and implement it yourself.
+For example, 1997 is not a leap year, but 1996 is.
+1900 is not a leap year, but 2000 is.
 
 ## Notes
 
-For a delightful, four minute explanation of the whole leap year
-phenomenon, go watch [this youtube video][video].
+Though our exercise adopts some very simple rules, there is more to learn!
 
-[video]: http://www.youtube.com/watch?v=xX96xng7sAE
+For a delightful, four minute explanation of the whole leap year phenomenon, go watch [this youtube video][video].
 
-### Submitting Exercises
-
-Note that, when trying to submit an exercise, make sure the solution is in the `exercism/python/<exerciseName>` directory.
-
-For example, if you're submitting `bob.py` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/python/bob/bob.py`.
-
-
-For more detailed information about running tests, code style and linting,
-please see the [help page](http://exercism.io/languages/python).
+[video]: https://www.youtube.com/watch?v=xX96xng7sAE
 
 ## Source
 
-JavaRanch Cattle Drive, exercise 3 [view source](http://www.javaranch.com/leap.jsp)
+### Contributed to by
+
+- @AnAccountForReportingBugs
+- @behrtam
+- @BethanyG
+- @betojulio
+- @cmccandless
+- @cruxicheiros
+- @Dog
+- @fluxusfrequency
+- @iandexter
+- @ikhadykin
+- @kytrinyx
+- @lowks
+- @N-Parsons
+- @olufotebig
+- @pheanex
+- @sambryant4
+- @sjakobi
+- @tqa236
+- @yawpitch
+
+### Based on
+
+CodeRanch Cattle Drive, Assignment 3 - https://coderanch.com/t/718816/Leap

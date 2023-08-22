@@ -1,101 +1,120 @@
+import os
+from typing import List
+
+
 NUMBERS = {
-    '00': '',
-    '0': 'zero',
-    '1': 'one',
-    '2': 'two',
-    '3': 'three',
-    '4': 'four',
-    '5': 'five',
-    '6': 'six',
-    '7': 'seven',
-    '8': 'eight',
-    '9': 'nine',
-    '10': 'ten',
-    '11': 'eleven',
-    '12': 'twelve'
+    "00": "",
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine",
+    "10": "ten",
+    "11": "eleven",
+    "12": "twelve",
+    "13": "thirteen",
+    "14": "fourteen",
+    "15": "fifteen",
+    "16": "sixteen",
+    "17": "seventeen",
+    "18": "eighteen",
+    "19": "nineteen",
 }
 TENS = {
-    '00': '',
-    '0': '',
-    '2': 'twenty-',
-    '3': 'thirty-',
-    '4': 'forty-',
-    '5': 'fifty-',
-    '6': 'sixty-',
-    '7': 'seventy-',
-    '8': 'eighty-',
-    '9': 'ninety-',
+    "00": "",
+    "0": "",
+    "2": "twenty-",
+    "3": "thirty-",
+    "4": "forty-",
+    "5": "fifty-",
+    "6": "sixty-",
+    "7": "seventy-",
+    "8": "eighty-",
+    "9": "ninety-",
+}
+NUMBER_GROUP_NAMES = {
+    0: "",
+    1: "thousand",
+    2: "million",
+    3: "billion",
 }
 
 
-def say(number):
+def say(number: int, do_speak: bool = False) -> str:
+    """Return the English equivalent of a number.
+
+    :param number: int - the number to "say."
+    :return: str
+    """
     if number > 999999999999 or number < 0:
-        raise AttributeError('{} is out of range. Please try a number '
-                             'between 0 and 999,999,999,999.'.format(number))
-    chunk_names = {
-        0: '',
-        1: 'thousand',
-        2: 'million',
-        3: 'billion',
-    }
-    number = str(int(number))
-    number_name = []
-    number_chunks = _chunk_it(number)
-    index = len(number_chunks)
-    for chunk in number_chunks:
-        translated_chunk = _translate(chunk)
-        index -= 1
-        if translated_chunk:
-            if (index - 1 >= 0 and
-                    len(number_name) > 0 and
-                    number_name[-1] == 'million' and
-                    translated_chunk[0:3] == 'and'):
-                translated_chunk = translated_chunk[4:]
-            number_name.append(translated_chunk)
-        if translated_chunk and chunk_names[index]:
-            number_name.append(chunk_names[index])
-    translated_number = ' '.join(number_name).strip()
-    if translated_number[0:3] == 'and':
-        translated_number = translated_number[4:]
-    return translated_number
+        raise ValueError("input out of range")
+
+    number_str = str(number)
+    number_groups = group_numbers(number_str)
+
+    english_number = convert_to_english(number_groups)
+
+    if do_speak:
+        os.system(f"say '{english_number}'")
+
+    return english_number
 
 
-def _chunk_it(int_string):
-    chunks = []
+def group_numbers(int_string: str) -> List[str]:
+    """Return numbers in a list grouped by three."""
+    number_groups: List[str] = []
     while int_string:
-        chunks.insert(0, int_string[-3:])
+        number_groups.insert(0, int_string[-3:])
         int_string = int_string[:-3]
-    return chunks
+    return number_groups
 
 
-def _translate(int_group):
+def convert_to_english(number_groups: List[str]) -> str:
+    number_name = []
+    cursor = len(number_groups) - 1  # Start at the end.
+    for group in number_groups:
+        if translated_group := _translate(group):
+            number_name.append(translated_group)
+
+            number_name.append(NUMBER_GROUP_NAMES[cursor])
+        cursor -= 1
+
+    return " ".join(number_name).strip()
+
+
+def _translate(number: str) -> str:
+    """Convert a number to English."""
     decimal_place = {
         3: _hundredify,
         2: _proper_ten,
         1: _number,
     }
-    return ' '.join(decimal_place[len(int_group)](int_group))
+    return " ".join(decimal_place[len(number)](number))
 
 
 def _hundredify(number_string):
-    if number_string[0] == '0':
+    if number_string[0] == "0":
         return _proper_ten(number_string[1:])
-    hundred_chunk = ['{}'.format(NUMBERS[number_string[0]]), 'hundred']
+    hundred_chunk = ["{}".format(NUMBERS[number_string[0]]), "hundred"]
     return hundred_chunk + _proper_ten(number_string[1:])
 
 
 def _proper_ten(int_string):
-    if int_string[0] == '1' and int_string not in NUMBERS:
-        return [NUMBERS[int_string[1]] + 'teen']
-    elif int_string[0] == '1':
+    if int_string[0] == "1":
+        # 10-19 are idiosyncratic.
         return [NUMBERS[int_string]]
-    elif int_string != '00':
-        ten = TENS[int_string[0]]
-        if int_string[-1] == '0':
-            return ['and', ten[:-1]]
-        else:
-            return ['and', ten + NUMBERS[int_string[1]]]
-    return [TENS[int_string]]
+
+    ten = TENS[int_string[0]]
+    if int_string[-1] == "0":
+        # Remove the hyphen.
+        return [ten[:-1]]
+
+    return [ten + NUMBERS[int_string[1]]]
 
 
 def _number(int_string):

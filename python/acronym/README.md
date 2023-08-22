@@ -1,23 +1,47 @@
 # Acronym
 
-Convert a long phrase to its acronym
+Welcome to Acronym on Exercism's Python Track.
+If you need help running the tests or submitting your code, check out `HELP.md`.
+
+## Instructions
+
+Convert a phrase to its acronym.
 
 Techies love their TLA (Three Letter Acronyms)!
 
-Help generate some jargon by writing a program that converts a long name
-like Portable Network Graphics to its acronym (PNG).
+Help generate some jargon by writing a program that converts a long name like Portable Network Graphics to its acronym (PNG).
 
+Punctuation is handled as follows: hyphens are word separators (like whitespace); all other punctuation can be removed from the input.
 
-### Submitting Exercises
+For example:
 
-Note that, when trying to submit an exercise, make sure the solution is in the `exercism/python/<exerciseName>` directory.
-
-For example, if you're submitting `bob.py` for the Bob exercise, the submit command would be something like `exercism submit <path_to_exercism_dir>/python/bob/bob.py`.
-
-
-For more detailed information about running tests, code style and linting,
-please see the [help page](http://exercism.io/languages/python).
+|Input|Output|
+|-|-|
+|As Soon As Possible|ASAP|
+|Liquid-crystal display|LCD|
+|Thank George It's Friday!|TGIF|
 
 ## Source
 
-Julien Vanier [view source](https://github.com/monkbroc)
+### Created by
+
+- @rootulp
+
+### Contributed to by
+
+- @AnAccountForReportingBugs
+- @behrtam
+- @cmccandless
+- @Dog
+- @GascaK
+- @ikhadykin
+- @N-Parsons
+- @omer-g
+- @pheanex
+- @sjwarner-bp
+- @thomasjpfan
+- @tqa236
+
+### Based on
+
+Julien Vanier - https://github.com/monkbroc

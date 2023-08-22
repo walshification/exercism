@@ -1,5 +1,5 @@
-import datetime
+from datetime import datetime, timedelta
 
 
-def add_gigasecond(input_datetime):
-    return input_datetime + datetime.timedelta(seconds=1000000000)
+def add(start: datetime) -> datetime:
+    return start + timedelta(seconds=1000000000)

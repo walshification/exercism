@@ -1,52 +1,61 @@
-"""
-You can make the following assumptions about the inputs to the
-'sum_of_multiples' function:
-    * All input numbers are non-negative 'int's, i.e. natural numbers including
-      zero.
-    * If a list of factors is given, its elements are uniqe and sorted in
-      ascending order.
-    * If the 'factors' argument is missing, use the list [3, 5] instead.
-"""
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/sum-of-multiples/canonical-data.json
+# File last updated on 2023-07-19
 
 import unittest
 
-from sum_of_multiples import sum_of_multiples
+from sum_of_multiples import (
+    sum_of_multiples,
+)
 
 
 class SumOfMultiplesTest(unittest.TestCase):
-    def test_sum_to_1(self):
-        self.assertEqual(0, sum_of_multiples(1))
+    def test_no_multiples_within_limit(self):
+        self.assertEqual(sum_of_multiples(1, [3, 5]), 0)
 
-    def test_sum_to_3(self):
-        self.assertEqual(3, sum_of_multiples(4))
+    def test_one_factor_has_multiples_within_limit(self):
+        self.assertEqual(sum_of_multiples(4, [3, 5]), 3)
 
-    def test_sum_to_10(self):
-        self.assertEqual(23, sum_of_multiples(10))
+    def test_more_than_one_multiple_within_limit(self):
+        self.assertEqual(sum_of_multiples(7, [3]), 9)
 
-    def test_sum_to_100(self):
-        self.assertEqual(2318, sum_of_multiples(100))
+    def test_more_than_one_factor_with_multiples_within_limit(self):
+        self.assertEqual(sum_of_multiples(10, [3, 5]), 23)
 
-    def test_sum_to_1000(self):
-        self.assertEqual(233168, sum_of_multiples(1000))
+    def test_each_multiple_is_only_counted_once(self):
+        self.assertEqual(sum_of_multiples(100, [3, 5]), 2318)
 
-    def test_configurable_7_13_17_to_20(self):
-        self.assertEqual(51, sum_of_multiples(20, [7, 13, 17]))
+    def test_a_much_larger_limit(self):
+        self.assertEqual(sum_of_multiples(1000, [3, 5]), 233168)
 
-    def test_configurable_4_6_to_15(self):
-        self.assertEqual(30, sum_of_multiples(15, [4, 6]))
+    def test_three_factors(self):
+        self.assertEqual(sum_of_multiples(20, [7, 13, 17]), 51)
 
-    def test_configurable_5_6_8_to_150(self):
-        self.assertEqual(4419, sum_of_multiples(150, [5, 6, 8]))
+    def test_factors_not_relatively_prime(self):
+        self.assertEqual(sum_of_multiples(15, [4, 6]), 30)
 
-    def test_configurable_43_47_to_10000(self):
-        self.assertEqual(2203160, sum_of_multiples(10000, [43, 47]))
+    def test_some_pairs_of_factors_relatively_prime_and_some_not(self):
+        self.assertEqual(sum_of_multiples(150, [5, 6, 8]), 4419)
 
-    def test_configurable_0_to_10(self):
-        self.assertEqual(0, sum_of_multiples(10, [0]))
+    def test_one_factor_is_a_multiple_of_another(self):
+        self.assertEqual(sum_of_multiples(51, [5, 25]), 275)
 
-    def test_configurable_0_1_to_10(self):
-        self.assertEqual(45, sum_of_multiples(10, [0, 1]))
+    def test_much_larger_factors(self):
+        self.assertEqual(sum_of_multiples(10000, [43, 47]), 2203160)
 
+    def test_all_numbers_are_multiples_of_1(self):
+        self.assertEqual(sum_of_multiples(100, [1]), 4950)
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_no_factors_means_an_empty_sum(self):
+        self.assertEqual(sum_of_multiples(10000, []), 0)
+
+    def test_the_only_multiple_of_0_is_0(self):
+        self.assertEqual(sum_of_multiples(1, [0]), 0)
+
+    def test_the_factor_0_does_not_affect_the_sum_of_multiples_of_other_factors(self):
+        self.assertEqual(sum_of_multiples(4, [3, 0]), 3)
+
+    def test_solutions_using_include_exclude_must_extend_to_cardinality_greater_than_3(
+        self,
+    ):
+        self.assertEqual(sum_of_multiples(10000, [2, 3, 5, 7, 11]), 39614537)

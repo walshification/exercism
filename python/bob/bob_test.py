@@ -1,118 +1,102 @@
-# -*- coding: utf-8 -*-
+# These tests are auto-generated with test data from:
+# https://github.com/exercism/problem-specifications/tree/main/exercises/bob/canonical-data.json
+# File last updated on 2023-07-20
 
-from __future__ import unicode_literals
 import unittest
 
-import bob
+from bob import (
+    response,
+)
 
 
-class BobTests(unittest.TestCase):
-
+class BobTest(unittest.TestCase):
     def test_stating_something(self):
-        self.assertEqual(
-            'Whatever.',
-            bob.hey('Tom-ay-to, tom-aaaah-to.')
-        )
+        self.assertEqual(response("Tom-ay-to, tom-aaaah-to."), "Whatever.")
 
     def test_shouting(self):
-        self.assertEqual(
-            'Whoa, chill out!',
-            bob.hey('WATCH OUT!')
-        )
+        self.assertEqual(response("WATCH OUT!"), "Whoa, chill out!")
+
+    def test_shouting_gibberish(self):
+        self.assertEqual(response("FCECDFCAAB"), "Whoa, chill out!")
 
     def test_asking_a_question(self):
         self.assertEqual(
-            'Sure.',
-            bob.hey('Does this cryogenic chamber make me look fat?')
+            response("Does this cryogenic chamber make me look fat?"), "Sure."
         )
 
     def test_asking_a_numeric_question(self):
-        self.assertEqual(
-            'Sure.',
-            bob.hey('You are, what, like 15?')
-        )
+        self.assertEqual(response("You are, what, like 15?"), "Sure.")
+
+    def test_asking_gibberish(self):
+        self.assertEqual(response("fffbbcbeab?"), "Sure.")
 
     def test_talking_forcefully(self):
-        self.assertEqual(
-            'Whatever.',
-            bob.hey("Let's go make out behind the gym!")
-        )
+        self.assertEqual(response("Hi there!"), "Whatever.")
 
     def test_using_acronyms_in_regular_speech(self):
         self.assertEqual(
-            'Whatever.', bob.hey("It's OK if you don't want to go to the DMV.")
+            response("It's OK if you don't want to go work for NASA."), "Whatever."
         )
 
-    def test_forceful_questions(self):
+    def test_forceful_question(self):
         self.assertEqual(
-            'Whoa, chill out!', bob.hey('WHAT THE HELL WERE YOU THINKING?')
+            response("WHAT'S GOING ON?"), "Calm down, I know what I'm doing!"
         )
 
     def test_shouting_numbers(self):
-        self.assertEqual(
-            'Whoa, chill out!', bob.hey('1, 2, 3 GO!')
-        )
+        self.assertEqual(response("1, 2, 3 GO!"), "Whoa, chill out!")
 
-    def test_only_numbers(self):
-        self.assertEqual(
-            'Whatever.', bob.hey('1, 2, 3')
-        )
+    def test_no_letters(self):
+        self.assertEqual(response("1, 2, 3"), "Whatever.")
 
-    def test_question_with_only_numbers(self):
-        self.assertEqual(
-            'Sure.', bob.hey('4?')
-        )
+    def test_question_with_no_letters(self):
+        self.assertEqual(response("4?"), "Sure.")
 
     def test_shouting_with_special_characters(self):
         self.assertEqual(
-            'Whoa, chill out!',
-            bob.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
-        )
-
-    def test_shouting_with_umlauts(self):
-        self.assertEqual(
-            'Whoa, chill out!', bob.hey('ÜMLÄÜTS!')
-        )
-
-    def test_calmly_speaking_with_umlauts(self):
-        self.assertEqual(
-            'Whatever.', bob.hey('ÜMLäÜTS!')
+            response("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!"),
+            "Whoa, chill out!",
         )
 
     def test_shouting_with_no_exclamation_mark(self):
-        self.assertEqual(
-            'Whoa, chill out!', bob.hey('I HATE YOU')
-        )
+        self.assertEqual(response("I HATE THE DENTIST"), "Whoa, chill out!")
 
     def test_statement_containing_question_mark(self):
-        self.assertEqual(
-            'Whatever.', bob.hey('Ending with ? means a question.')
-        )
+        self.assertEqual(response("Ending with ? means a question."), "Whatever.")
+
+    def test_non_letters_with_question(self):
+        self.assertEqual(response(":) ?"), "Sure.")
 
     def test_prattling_on(self):
-        self.assertEqual(
-            'Sure.', bob.hey("Wait! Hang on. Are you going to be OK?")
-        )
+        self.assertEqual(response("Wait! Hang on. Are you going to be OK?"), "Sure.")
 
     def test_silence(self):
-        self.assertEqual(
-            'Fine. Be that way!', bob.hey('')
-        )
+        self.assertEqual(response(""), "Fine. Be that way!")
 
     def test_prolonged_silence(self):
+        self.assertEqual(response("          "), "Fine. Be that way!")
+
+    def test_alternate_silence(self):
+        self.assertEqual(response("\t\t\t\t\t\t\t\t\t\t"), "Fine. Be that way!")
+
+    def test_multiple_line_question(self):
         self.assertEqual(
-            'Fine. Be that way!', bob.hey('    \t')
+            response("\nDoes this cryogenic chamber make me look fat?\nNo."),
+            "Whatever.",
         )
 
-    def test_starts_with_whitespace(self):
+    def test_starting_with_whitespace(self):
+        self.assertEqual(response("         hmmmmmmm..."), "Whatever.")
+
+    def test_ending_with_whitespace(self):
         self.assertEqual(
-            'Whatever.', bob.hey('         hmmmmmmm...')
+            response("Okay if like my  spacebar  quite a bit?   "), "Sure."
         )
 
-    def test_ends_with_whitespace(self):
-        self.assertEqual(
-            'Sure.', bob.hey('What if we end with whitespace?   ')
-        )
+    def test_other_whitespace(self):
+        self.assertEqual(response("\n\r \t"), "Fine. Be that way!")
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_non_question_ending_with_whitespace(self):
+        self.assertEqual(
+            response("This is a statement ending with whitespace      "), "Whatever."
+        )
