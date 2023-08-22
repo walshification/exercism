@@ -31,7 +31,7 @@ def multiply(slice: List[int]) -> int:
     return functools.reduce(operator.mul, slice)
 
 
-def create_slices(digit_string: str, N: int) -> List[int]:
+def create_slices(digit_string: str, N: int) -> List[List[int]]:
     """Return contiguous substrings in digit_string of length N."""
     return [
         [int(char) for char in digit_string[(i) : (N + i)]]
